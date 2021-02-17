@@ -58,9 +58,9 @@ trait MagicProp {
 	}
 
 	public function __unset(string $name):void {
-		if(property_exists($this, $name)) {
-			unset($this->$name);
-			return;
+		$setMethod = $this->getMagicPropMethod($name, "set");
+		if(!method_exists($this, $setMethod)) {
+			throw new PropertyReadOnlyException($name);
 		}
 
 		unset($this->magicPropValue[$name]);

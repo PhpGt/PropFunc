@@ -35,6 +35,20 @@ class GetterSetterTest extends TestCase {
 		self::assertTrue(isset($sut->name));
 	}
 
+	public function testUnsetReadOnly() {
+		$sut = new ExampleGetterSetter();
+		self::expectException(PropertyReadOnlyException::class);
+		unset($sut->constructedAt);
+	}
+
+	public function testUnsetMagic() {
+		$sut = new ExampleGetterSetter();
+		$sut->age = 123;
+		self::assertEquals(123, $sut->age);
+		unset($sut->age);
+		self::assertEquals(time() - $sut->constructedAt, $sut->age);
+	}
+
 	public function testGetUcName() {
 		$sut = new ExampleGetterSetter();
 		$sut->name = "test";
