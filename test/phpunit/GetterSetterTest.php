@@ -1,6 +1,8 @@
 <?php
 namespace Gt\PropFunc\Test;
 
+use Gt\PropFunc\PropertyDoesNotExistException;
+use Gt\PropFunc\PropertyReadOnlyException;
 use PHPUnit\Framework\TestCase;
 use Gt\PropFunc\Test\Helper\ExampleGetterSetter;
 
@@ -37,5 +39,23 @@ class GetterSetterTest extends TestCase {
 		$sut = new ExampleGetterSetter();
 		$sut->name = "test";
 		self::assertEquals("TEST", $sut->ucName);
+	}
+
+	public function testGetNonExistentProperty() {
+		$sut = new ExampleGetterSetter();
+		self::expectException(PropertyDoesNotExistException::class);
+		$sut->nothing;
+	}
+
+	public function testSetNonExistentProperty() {
+		$sut = new ExampleGetterSetter();
+		self::expectException(PropertyDoesNotExistException::class);
+		$sut->nothing = "something";
+	}
+
+	public function testSetReadOnlyProperty() {
+		$sut = new ExampleGetterSetter();
+		self::expectException(PropertyReadOnlyException::class);
+		$sut->ucName = "SOMETHING";
 	}
 }
