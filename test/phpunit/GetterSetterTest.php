@@ -70,6 +70,7 @@ class GetterSetterTest extends TestCase {
 	public function testSetReadOnlyProperty() {
 		$sut = new ExampleGetterSetter();
 		self::expectException(PropertyReadOnlyException::class);
+		/** @var \StdClass $sut Suppress the IDE-error on line below! */
 		$sut->ucName = "SOMETHING";
 	}
 }
