@@ -1,6 +1,6 @@
 {
 	"name": "phpgt/propfunc",
-	"description": " Define property accessor and mutator functions on classes.",
+	"description": "Property accessor and mutator functions.",
 	"type": "library",
 
 	"require": {

@@ -1,4 +1,4 @@
-# Define property accessor and mutator functions on classes.
+# Property accessor and mutator functions.
 
 Property accessors and mutators are commonly referred to as "getter" and "setter" functions. This library uses [PHP's Magic Methods][magic-methods] to easily hook up getter and setter functions that are exposed externally as normal properties, via the `MagicProp` trait.
 
