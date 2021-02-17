@@ -7,6 +7,7 @@ use Gt\PropFunc\MagicProp;
  * @property-read int $constructedAt
  * @property-read string $ucName
  * @property int $age
+ * @property-read string $writeMeOnce
  */
 class ExampleGetterSetter {
 	use MagicProp;

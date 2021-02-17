@@ -4,8 +4,6 @@ namespace Gt\PropFunc;
 trait MagicProp {
 	/** @var array<string,mixed> */
 	protected array $magicPropValue = [];
-	/** @var array<string,bool> */
-	protected array $magicPropSetFlag = [];
 
 	/** @return mixed */
 	public function __get(string $name) {
@@ -26,16 +24,6 @@ trait MagicProp {
 		$setMethod = $this->getMagicPropMethod($name, "set");
 		if(method_exists($this, $setMethod)) {
 			call_user_func([$this, $setMethod], $value);
-			return;
-		}
-
-		$setOnceMethod = $this->getMagicPropMethod($name, "setonce");
-		if(method_exists($this, $setOnceMethod)) {
-			if(isset($this->magicPropSetFlag[$name])) {
-				throw new PropertySetMoreThanOnceException($name);
-			}
-
-			call_user_func([$this, $setOnceMethod], $value);
 			return;
 		}
 
