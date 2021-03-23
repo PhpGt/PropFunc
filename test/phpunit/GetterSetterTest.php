@@ -5,6 +5,7 @@ use Gt\PropFunc\PropertyDoesNotExistException;
 use Gt\PropFunc\PropertyReadOnlyException;
 use PHPUnit\Framework\TestCase;
 use Gt\PropFunc\Test\Helper\ExampleGetterSetter;
+use StdClass;
 
 class GetterSetterTest extends TestCase {
 	public function testIsset() {
@@ -70,7 +71,7 @@ class GetterSetterTest extends TestCase {
 	public function testSetReadOnlyProperty() {
 		$sut = new ExampleGetterSetter();
 		self::expectException(PropertyReadOnlyException::class);
-		/** @var \StdClass $sut Suppress the IDE-error on line below! */
+		/** @var StdClass $sut Suppress the IDE-error on line below! */
 		$sut->ucName = "SOMETHING";
 	}
 }

@@ -3,11 +3,11 @@ namespace Gt\PropFunc;
 
 trait MagicProp {
 	/** @var array<string,mixed> */
-	protected array $magicPropValue = [];
+	protected array $__prop = [];
 
 	/** @return mixed */
 	public function __get(string $name) {
-		$method = $this->getMagicPropMethod($name, "get");
+		$method = $this->getMagicPropMethod($name);
 		if(!method_exists($this, $method)) {
 			throw new PropertyDoesNotExistException($name);
 		}
@@ -51,7 +51,7 @@ trait MagicProp {
 			throw new PropertyReadOnlyException($name);
 		}
 
-		unset($this->magicPropValue[$name]);
+		unset($this->__prop[$name]);
 	}
 
 	private function getMagicPropMethod(
