@@ -41,11 +41,18 @@ class Day {
 		private DateTimeInterface $dateTime
 	) {}
 	
+// Expose the "dateTime" private property with read-only access:
+	private function __prop_get_dateTime():DateTimeInterface {
+		return $this->dateTime;
+	}
+	
+// Expose the "future" calculated property with read-only access:
 	private function __prop_get_future():bool {
 		$now = new DateTime();
 		return $now < $this->dateTime;
 	}
 	
+// Expose the "daysApart" calculated property with read-only access:
 	private function __prop_get_daysApart():int {
 		$now = new DateTime();
 		$diff = $now->diff($this->dateTime);
