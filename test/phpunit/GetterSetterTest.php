@@ -74,4 +74,15 @@ class GetterSetterTest extends TestCase {
 		/** @var StdClass $sut Suppress the IDE-error on line below! */
 		$sut->ucName = "SOMETHING";
 	}
+
+	public function testExistingPropertyOverridden() {
+		$sut = new ExampleGetterSetter();
+		self::assertIsInt($sut->id);
+	}
+
+	public function testExistingPropertyReadOnly() {
+		$sut = new ExampleGetterSetter();
+		self::expectException(PropertyReadOnlyException::class);
+		$sut->id = 123;
+	}
 }

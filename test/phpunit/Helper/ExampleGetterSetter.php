@@ -6,6 +6,7 @@ use Gt\PropFunc\MagicProp;
 /**
  * @property-read int $constructedAt
  * @property-read string $ucName
+ * @property-read int $id
  * @property int $age
  * @property-read string $writeMeOnce
  */
@@ -13,9 +14,11 @@ class ExampleGetterSetter {
 	use MagicProp;
 
 	public string $name;
+	private int $id;
 
 	public function __construct() {
 		$this->__prop["constructedAt"] = time();
+		$this->id = rand(1000,9999);
 	}
 
 	protected function __prop_get_constructedAt():int {
@@ -36,5 +39,9 @@ class ExampleGetterSetter {
 
 	protected function __prop_set_age(int $seconds):void {
 		$this->__prop["age"] = $seconds;
+	}
+
+	protected function __prop_get_id():int {
+		return $this->id;
 	}
 }

@@ -17,8 +17,11 @@ trait MagicProp {
 	/** @param mixed $value */
 	public function __set(string $name, $value):void {
 		if(property_exists($this, $name)) {
-			$this->$name = $value;
-			return;
+			$prop = new \ReflectionProperty($this, $name);
+			if($prop->isPublic()) {
+				$this->$name = $value;
+				return;
+			}
 		}
 
 		$setMethod = $this->getMagicPropMethod($name, "set");
