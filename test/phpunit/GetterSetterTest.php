@@ -86,4 +86,10 @@ class GetterSetterTest extends TestCase {
 		$propertyName = "id";
 		$sut->$propertyName = 123;
 	}
+
+	public function testInternalPropertyValue():void {
+		$sut = new ExampleGetterSetter();
+		$sut->internalProperty = "example";
+		self::assertEquals("example", $sut->internalProperty);
+	}
 }
