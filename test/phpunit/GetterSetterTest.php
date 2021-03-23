@@ -83,6 +83,7 @@ class GetterSetterTest extends TestCase {
 	public function testExistingPropertyReadOnly() {
 		$sut = new ExampleGetterSetter();
 		self::expectException(PropertyReadOnlyException::class);
-		$sut->id = 123;
+		$propertyName = "id";
+		$sut->$propertyName = 123;
 	}
 }

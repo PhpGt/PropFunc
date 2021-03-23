@@ -13,16 +13,17 @@ use Gt\PropFunc\MagicProp;
 class ExampleGetterSetter {
 	use MagicProp;
 
+	private int $constructedAt;
 	public string $name;
 	private int $id;
 
 	public function __construct() {
-		$this->__prop["constructedAt"] = time();
+		$this->constructedAt = time();
 		$this->id = rand(1000,9999);
 	}
 
 	protected function __prop_get_constructedAt():int {
-		return $this->__prop["constructedAt"];
+		return $this->constructedAt;
 	}
 
 	protected function __prop_get_ucName():string {
@@ -30,15 +31,11 @@ class ExampleGetterSetter {
 	}
 
 	protected function __prop_get_age():int {
-		if(isset($this->__prop["age"])) {
-			return $this->__prop["age"];
-		}
-
 		return time() - $this->constructedAt;
 	}
 
 	protected function __prop_set_age(int $seconds):void {
-		$this->__prop["age"] = $seconds;
+		$this->constructedAt = time() - $seconds;
 	}
 
 	protected function __prop_get_id():int {

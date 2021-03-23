@@ -1,10 +1,9 @@
 <?php
 namespace Gt\PropFunc;
 
-trait MagicProp {
-	/** @var array<string,mixed> */
-	protected array $__prop = [];
+use ReflectionProperty;
 
+trait MagicProp {
 	/** @return mixed */
 	public function __get(string $name) {
 		$method = $this->getMagicPropMethod($name);
@@ -17,7 +16,7 @@ trait MagicProp {
 	/** @param mixed $value */
 	public function __set(string $name, $value):void {
 		if(property_exists($this, $name)) {
-			$prop = new \ReflectionProperty($this, $name);
+			$prop = new ReflectionProperty($this, $name);
 			if($prop->isPublic()) {
 				$this->$name = $value;
 				return;
@@ -54,7 +53,7 @@ trait MagicProp {
 			throw new PropertyReadOnlyException($name);
 		}
 
-		unset($this->__prop[$name]);
+		unset($this->$name);
 	}
 
 	private function getMagicPropMethod(
