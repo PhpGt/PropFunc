@@ -4,6 +4,9 @@ namespace Gt\PropFunc;
 use ReflectionProperty;
 
 trait MagicProp {
+	/** @var array<string, mixed> */
+	protected array $__prop = [];
+
 	/** @return mixed */
 	public function __get(string $name) {
 		$method = $this->getMagicPropMethod($name);
