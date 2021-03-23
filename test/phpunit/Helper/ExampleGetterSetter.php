@@ -50,4 +50,12 @@ class ExampleGetterSetter {
 	private function __prop_get_id():int {
 		return $this->id;
 	}
+
+	private function __prop_get_internalProperty():?string {
+		return $this->__prop["internalProperty"] ?? null;
+	}
+
+	private function __prop_set_internalProperty(string $value):void {
+		$this->__prop["internalProperty"] = $value;
+	}
 }
