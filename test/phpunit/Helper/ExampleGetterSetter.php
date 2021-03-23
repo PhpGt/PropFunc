@@ -31,23 +31,23 @@ class ExampleGetterSetter {
 		$this->id = rand(1000,9999);
 	}
 
-	protected function __prop_get_constructedAt():int {
+	private function __prop_get_constructedAt():int {
 		return $this->constructedAt;
 	}
 
-	protected function __prop_get_ucName():string {
+	private function __prop_get_ucName():string {
 		return strtoupper($this->name);
 	}
 
-	protected function __prop_get_age():int {
+	private function __prop_get_age():int {
 		return time() - $this->constructedAt;
 	}
 
-	protected function __prop_set_age(int $seconds):void {
+	private function __prop_set_age(int $seconds):void {
 		$this->constructedAt = time() - $seconds;
 	}
 
-	protected function __prop_get_id():int {
+	private function __prop_get_id():int {
 		return $this->id;
 	}
 }
