@@ -3,6 +3,7 @@ namespace Gt\PropFunc\Test;
 
 use Gt\PropFunc\PropertyDoesNotExistException;
 use Gt\PropFunc\PropertyReadOnlyException;
+use Gt\PropFunc\Test\Helper\PropertyAlreadyWrittenException;
 use PHPUnit\Framework\TestCase;
 use Gt\PropFunc\Test\Helper\ExampleGetterSetter;
 use StdClass;
@@ -98,5 +99,35 @@ class GetterSetterTest extends TestCase {
 		self::assertEquals("this is read only", $sut->internalReadOnly);
 		self::expectException(PropertyReadOnlyException::class);
 		$sut->internalReadOnly = "changed";
+	}
+
+	public function testWriteOnce():void {
+		$sut = new ExampleGetterSetter();
+		$sut->writeMeOnce = "written once";
+		self::assertEquals("written once", $sut->writeMeOnce);
+
+		$exception = null;
+		try {
+			$sut->writeMeOnce = "written twice";
+		}
+		catch(PropertyAlreadyWrittenException $exception) {}
+
+		self::assertNotNull($exception);
+		self::assertEquals("written once", $sut->writeMeOnce);
+	}
+
+	public function testInternalWriteOnce():void {
+		$sut = new ExampleGetterSetter();
+		$sut->internalWriteMeOnce = "written once";
+		self::assertEquals("written once", $sut->internalWriteMeOnce);
+
+		$exception = null;
+		try {
+			$sut->internalWriteMeOnce = "written twice";
+		}
+		catch(PropertyAlreadyWrittenException $exception) {}
+
+		self::assertNotNull($exception);
+		self::assertEquals("written once", $sut->internalWriteMeOnce);
 	}
 }

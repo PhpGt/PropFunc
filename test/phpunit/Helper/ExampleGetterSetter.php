@@ -4,9 +4,9 @@ namespace Gt\PropFunc\Test\Helper;
 use Gt\PropFunc\MagicProp;
 
 /**
- * @property string $internalProperty An example property that is stored
+ * @property ?string $internalProperty An example property that is stored
  * internally within the __prop structure.
- * @property-read string $internalReadOnly An example property that is stored
+ * @property-read ?string $internalReadOnly An example property that is stored
  * internally within the __prop structure, but only exposed as read-only.
  * @property-read int $constructedAt An integer that's automatically created at
  * construct time, stored in a private property but exposed read-only by a
@@ -16,8 +16,10 @@ use Gt\PropFunc\MagicProp;
  * @property-read int $id An example property that shows how a private property
  * can be exposed read-only without needing to store any internal __prop values.
  * @property int $age A calculated property based on the constructedAt value.
- * @property-read string $writeMeOnce A write-once property. Any future writes
+ * @property-read ?string $writeMeOnce A write-once property. Any future writes
  * will throw an exception.
+ * @property-read ?string $internalWriteMeOnce An example property that is
+ * stored internally within the __prop structure, configured to be write-once.
  */
 class ExampleGetterSetter {
 	use MagicProp;
@@ -25,6 +27,7 @@ class ExampleGetterSetter {
 	private int $constructedAt;
 	public string $name;
 	private int $id;
+	private string $writeMeOnce;
 
 	public function __construct() {
 		$this->constructedAt = time();
@@ -60,7 +63,31 @@ class ExampleGetterSetter {
 		$this->__prop["internalProperty"] = $value;
 	}
 
-	private function __prop_get_internalReadOnly():string {
+	private function __prop_get_internalReadOnly():?string {
 		return $this->__prop["internalReadOnly"];
+	}
+
+	private function __prop_get_writeMeOnce():?string {
+		return $this->writeMeOnce ?? null;
+	}
+
+	private function __prop_set_writeMeOnce(string $value):void {
+		if(isset($this->writeMeOnce)) {
+			throw new PropertyAlreadyWrittenException("writeMeOnce");
+		}
+
+		$this->writeMeOnce = $value;
+	}
+
+	private function __prop_get_internalWriteMeOnce():?string {
+		return $this->__prop["internalWriteMeOnce"] ?? null;
+	}
+
+	private function __prop_set_internalWriteMeOnce(string $value):void {
+		if(isset($this->__prop["internalWriteMeOnce"])) {
+			throw new PropertyAlreadyWrittenException("writeMeOnce");
+		}
+
+		$this->__prop["internalWriteMeOnce"] = $value;
 	}
 }
