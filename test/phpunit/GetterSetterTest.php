@@ -92,4 +92,11 @@ class GetterSetterTest extends TestCase {
 		$sut->internalProperty = "example";
 		self::assertEquals("example", $sut->internalProperty);
 	}
+
+	public function testInternalReadOnlyProperty():Void {
+		$sut = new ExampleGetterSetter();
+		self::assertEquals("this is read only", $sut->internalReadOnly);
+		self::expectException(PropertyReadOnlyException::class);
+		$sut->internalReadOnly = "changed";
+	}
 }

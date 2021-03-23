@@ -29,6 +29,7 @@ class ExampleGetterSetter {
 	public function __construct() {
 		$this->constructedAt = time();
 		$this->id = rand(1000,9999);
+		$this->__prop["internalReadOnly"] = "this is read only";
 	}
 
 	private function __prop_get_constructedAt():int {
@@ -57,5 +58,9 @@ class ExampleGetterSetter {
 
 	private function __prop_set_internalProperty(string $value):void {
 		$this->__prop["internalProperty"] = $value;
+	}
+
+	private function __prop_get_internalReadOnly():string {
+		return $this->__prop["internalReadOnly"];
 	}
 }
